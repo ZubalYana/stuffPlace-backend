@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
+import router from "./routes/authRoutes";
 
 dotenv.config();
 const app = express();
@@ -11,6 +12,8 @@ mongoose.connect(process.env.MONGO_URI || '')
         console.log('MongoDB connected')
     })
 
+app.use(express.json());
+app.use("/auth", router);
 
 app.get('/', (req, res) => {
     res.send("StuffPlace backend Typescript-Node server.")

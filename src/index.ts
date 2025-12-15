@@ -1,9 +1,9 @@
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
-import router from "./routes/authRoutes";
+import authRoutes from "./routes/authRoutes";
+import unitRoutes from "./routes/unitsRoutes";
 import cors from "cors";
-
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,7 +15,9 @@ mongoose.connect(process.env.MONGO_URI || '')
 
 app.use(express.json());
 app.use(cors());
-app.use("/auth", router);
+app.use("/auth", authRoutes);
+app.use("/units", unitRoutes);
+
 
 app.get('/', (req, res) => {
     res.send("StuffPlace backend Typescript-Node server.")

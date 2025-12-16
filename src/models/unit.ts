@@ -1,19 +1,37 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUnit extends Document {
-    description: string;
+    description: {
+        en: string;
+        hu: string;
+    };
     occupancy: number;
-    type: string;
-    comfortLevel: string;
+    type: {
+        en: string;
+        hu: string;
+    };
+    comfortLevel: {
+        en: string;
+        hu: string;
+    };
     img: string;
 }
 
 const UnitSchema = new Schema<IUnit>({
-    description: { type: String },
+    description: {
+        en: { type: String },
+        hu: { type: String },
+    },
     occupancy: { type: Number },
-    type: { type: String },
-    comfortLevel: { type: String },
-    img: { type: String }
-})
+    type: {
+        en: { type: String },
+        hu: { type: String },
+    },
+    comfortLevel: {
+        en: { type: String },
+        hu: { type: String },
+    },
+    img: { type: String },
+});
 
-export const Unit = mongoose.model<IUnit>("Unit", UnitSchema)
+export const Unit = mongoose.model<IUnit>("Unit", UnitSchema);

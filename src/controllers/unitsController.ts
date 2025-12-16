@@ -11,29 +11,28 @@ export const getUnits = async (req: Request, res: Response) => {
 }
 export const createUnit = async (req: Request, res: Response) => {
     try {
-        const {
-            description,
-            occupancy,
-            type,
-            comfortLevel,
-            img,
-        } = req.body;
+        const { description, occupancy, type, comfortLevel } = req.body;
+        const parsedDescription = description ? JSON.parse(description) : {};
+        const parsedType = type ? JSON.parse(type) : {};
+        const parsedComfortLevel = comfortLevel ? JSON.parse(comfortLevel) : {};
+
+        const imgUrl = req.file?.path;
 
         const unit = await Unit.create({
             description: {
-                en: description?.en,
-                hu: description?.hu,
+                en: parsedDescription.en,
+                hu: parsedDescription.hu,
             },
-            occupancy,
+            occupancy: Number(occupancy),
             type: {
-                en: type?.en,
-                hu: type?.hu,
+                en: parsedType.en,
+                hu: parsedType.hu,
             },
             comfortLevel: {
-                en: comfortLevel?.en,
-                hu: comfortLevel?.hu,
+                en: parsedComfortLevel.en,
+                hu: parsedComfortLevel.hu,
             },
-            img,
+            img: imgUrl,
         });
 
         res.status(201).json(unit);
@@ -44,6 +43,7 @@ export const createUnit = async (req: Request, res: Response) => {
         });
     }
 };
+
 export const updateUnit = async (req: Request, res: Response) => {
     try {
         const unit = await Unit.findByIdAndUpdate(

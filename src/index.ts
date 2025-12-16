@@ -1,10 +1,14 @@
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
+dotenv.config();
 import authRoutes from "./routes/authRoutes";
 import unitRoutes from "./routes/unitsRoutes";
 import cors from "cors";
-dotenv.config();
+
+import cloudinary from "./config/cloudinary";
+console.log("Cloudinary in index:", cloudinary.config().cloud_name);
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,6 +21,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/units", unitRoutes);
+
 
 
 app.get('/', (req, res) => {

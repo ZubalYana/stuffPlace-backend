@@ -11,27 +11,78 @@ export const getUnits = async (req: Request, res: Response) => {
 }
 export const createUnit = async (req: Request, res: Response) => {
     try {
-        const unit = await Unit.create(req.body);
-        res.status(200).json(unit);
+        const {
+            description,
+            occupancy,
+            type,
+            comfortLevel,
+            img,
+        } = req.body;
+
+        const unit = await Unit.create({
+            description: {
+                en: description?.en,
+                hu: description?.hu,
+            },
+            occupancy,
+            type: {
+                en: type?.en,
+                hu: type?.hu,
+            },
+            comfortLevel: {
+                en: comfortLevel?.en,
+                hu: comfortLevel?.hu,
+            },
+            img,
+        });
+
+        res.status(201).json(unit);
     } catch (err) {
-        res.status(400).json({ message: 'Failed to create unit:', err });
+        res.status(400).json({
+            message: "Failed to create unit",
+            error: err,
+        });
     }
-}
+};
 export const updateUnit = async (req: Request, res: Response) => {
     try {
         const unit = await Unit.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            {
+                $set: {
+                    ...(req.body.description && {
+                        "description.en": req.body.description.en,
+                        "description.hu": req.body.description.hu,
+                    }),
+                    ...(req.body.type && {
+                        "type.en": req.body.type.en,
+                        "type.hu": req.body.type.hu,
+                    }),
+                    ...(req.body.comfortLevel && {
+                        "comfortLevel.en": req.body.comfortLevel.en,
+                        "comfortLevel.hu": req.body.comfortLevel.hu,
+                    }),
+                    ...(req.body.occupancy !== undefined && {
+                        occupancy: req.body.occupancy,
+                    }),
+                    ...(req.body.img && { img: req.body.img }),
+                },
+            },
             { new: true }
         );
 
         if (!unit) {
-            return res.status(404).json({ message: 'Unit not found' });
+            return res.status(404).json({ message: "Unit not found" });
         }
+
+        res.json(unit);
     } catch (err) {
-        res.status(400).json({ message: 'Failed to update unit:', err })
+        res.status(400).json({
+            message: "Failed to update unit",
+            error: err,
+        });
     }
-}
+};
 export const deleteUnit = async (req: Request, res: Response) => {
     try {
         const unit = await Unit.findByIdAndDelete(req.params.id);

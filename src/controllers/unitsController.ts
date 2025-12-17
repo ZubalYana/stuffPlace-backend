@@ -11,36 +11,33 @@ export const getUnits = async (req: Request, res: Response) => {
 }
 export const createUnit = async (req: Request, res: Response) => {
     try {
-        const { description, occupancy, type, comfortLevel } = req.body;
-        const parsedDescription = description ? JSON.parse(description) : {};
-        const parsedType = type ? JSON.parse(type) : {};
-        const parsedComfortLevel = comfortLevel ? JSON.parse(comfortLevel) : {};
+        const {
+            occupancy,
+            type,
+            comfortLevel,
+            description,
+        } = req.body;
 
-        const imgUrl = req.file?.path;
+        const parsedType = JSON.parse(type);
+        const parsedComfort = JSON.parse(comfortLevel);
+        const parsedDescription = JSON.parse(description);
+
+        const images = (req.files as Express.Multer.File[]).map(
+            (file) => file.path
+        );
 
         const unit = await Unit.create({
-            description: {
-                en: parsedDescription.en,
-                hu: parsedDescription.hu,
-            },
-            occupancy: Number(occupancy),
-            type: {
-                en: parsedType.en,
-                hu: parsedType.hu,
-            },
-            comfortLevel: {
-                en: parsedComfortLevel.en,
-                hu: parsedComfortLevel.hu,
-            },
-            img: imgUrl,
+            occupancy,
+            type: parsedType,
+            comfortLevel: parsedComfort,
+            description: parsedDescription,
+            images,
         });
 
         res.status(201).json(unit);
     } catch (err) {
-        res.status(400).json({
-            message: "Failed to create unit",
-            error: err,
-        });
+        console.error(err);
+        res.status(500).json({ message: "Failed to create unit" });
     }
 };
 

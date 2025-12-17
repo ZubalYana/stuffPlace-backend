@@ -14,24 +14,28 @@ export interface IUnit extends Document {
         en: string;
         hu: string;
     };
-    img: string;
+    images: string[];
 }
 
 const UnitSchema = new Schema<IUnit>({
     description: {
-        en: { type: String },
-        hu: { type: String },
+        en: { type: String, required: true },
+        hu: { type: String, required: true },
     },
-    occupancy: { type: Number },
+    occupancy: { type: Number, required: true },
     type: {
-        en: { type: String },
-        hu: { type: String },
+        en: { type: String, required: true },
+        hu: { type: String, required: true },
     },
     comfortLevel: {
-        en: { type: String },
-        hu: { type: String },
+        en: { type: String, required: true },
+        hu: { type: String, required: true },
     },
-    img: { type: String },
+    images: {
+        type: [String],
+        required: true,
+        default: [],
+    },
 });
 
 export const Unit = mongoose.model<IUnit>("Unit", UnitSchema);

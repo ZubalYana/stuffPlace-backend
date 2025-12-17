@@ -36,9 +36,13 @@ export const createUnit = async (req: Request, res: Response) => {
 
         res.status(201).json(unit);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Failed to create unit" });
+        console.error("CREATE UNIT ERROR:", err);
+        res.status(500).json({
+            message: "Failed to create unit",
+            error: err instanceof Error ? err.message : err,
+        });
     }
+
 };
 
 export const updateUnit = async (req: Request, res: Response) => {

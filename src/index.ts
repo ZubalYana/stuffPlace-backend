@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 dotenv.config();
 import authRoutes from "./routes/authRoutes";
 import unitRoutes from "./routes/unitsRoutes";
+import uploadRoutes from "./routes/upload.routes";
 import cors from "cors";
 
 import cloudinary from "./config/cloudinary";
@@ -21,7 +22,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/units", unitRoutes);
-
+app.use("/upload", uploadRoutes);
 
 
 app.get('/', (req, res) => {

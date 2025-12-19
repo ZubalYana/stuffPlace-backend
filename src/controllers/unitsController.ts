@@ -44,7 +44,6 @@ export const createUnit = async (req: Request, res: Response) => {
     }
 
 };
-
 export const updateUnit = async (req: Request, res: Response) => {
     try {
         const unit = await Unit.findByIdAndUpdate(

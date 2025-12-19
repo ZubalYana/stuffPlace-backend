@@ -32,6 +32,7 @@ export const createUnit = async (req: Request, res: Response) => {
             comfortLevel: parsedComfort,
             description: parsedDescription,
             images,
+            hightlighted: false,
         });
 
         res.status(201).json(unit);

@@ -15,6 +15,7 @@ export interface IUnit extends Document {
         hu: string;
     };
     images: string[];
+    hightlighted: boolean;
 }
 
 const UnitSchema = new Schema<IUnit>({
@@ -36,6 +37,7 @@ const UnitSchema = new Schema<IUnit>({
         required: true,
         default: [],
     },
+    hightlighted: { type: Boolean, default: false }
 });
 
 export const Unit = mongoose.model<IUnit>("Unit", UnitSchema);

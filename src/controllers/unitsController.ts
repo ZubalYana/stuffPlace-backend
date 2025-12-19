@@ -65,7 +65,9 @@ export const updateUnit = async (req: Request, res: Response) => {
                     ...(req.body.occupancy !== undefined && {
                         occupancy: req.body.occupancy,
                     }),
-                    ...(req.body.img && { img: req.body.img }),
+                    ...(req.body.images && {
+                        images: req.body.images,
+                    }),
                 },
             },
             { new: true }

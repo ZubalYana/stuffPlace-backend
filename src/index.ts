@@ -5,6 +5,7 @@ dotenv.config();
 import authRoutes from "./routes/authRoutes";
 import unitRoutes from "./routes/unitsRoutes";
 import uploadRoutes from "./routes/upload.routes";
+import textRoutes from "./routes/textRoutes";
 import cors from "cors";
 
 import cloudinary from "./config/cloudinary";
@@ -23,7 +24,7 @@ app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/units", unitRoutes);
 app.use("/upload", uploadRoutes);
-
+app.use("/text", textRoutes);
 
 app.get('/', (req, res) => {
     res.send("StuffPlace backend Typescript-Node server.")

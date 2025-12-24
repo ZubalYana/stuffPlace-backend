@@ -4,21 +4,21 @@ export interface IText extends Document {
     mainDescription: {
         en: {
             text: string;
-            highlight: string;
+            highlights: string[];
         };
         hu: {
             text: string;
-            highlight: string;
+            highlights: string[];
         };
     },
     aboutUsText: {
         en: {
             text: string;
-            highlight: string;
+            highlights: string[];
         };
         hu: {
             text: string;
-            highlight: string;
+            highlights: string[];
         };
     },
     advantagesText: {
@@ -43,21 +43,21 @@ const TextSchema = new Schema<IText>({
     mainDescription: {
         en: {
             text: { type: String, required: true },
-            highlight: { type: String, default: "" },
+            highlights: { type: [String], default: [] },
         },
         hu: {
             text: { type: String, required: true },
-            highlight: { type: String, default: "" },
+            highlights: { type: [String], default: [] },
         }
     },
     aboutUsText: {
         en: {
             text: { type: String, required: true },
-            highlight: { type: String, default: "" },
+            highlights: { type: [String], default: [] },
         },
         hu: {
             text: { type: String, required: true },
-            highlight: { type: String, default: "" },
+            highlights: { type: [String], default: [] },
         }
     },
     advantagesText: {

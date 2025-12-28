@@ -8,6 +8,7 @@ import uploadRoutes from "./routes/upload.routes";
 import textRoutes from "./routes/textRoutes";
 import advantagesRoutes from "./routes/advantagesRoutes";
 import facilitiesRoutes from "./routes/facilitiesRoutes";
+import contactsRoutes from "./routes/contactsRoutes";
 import cors from "cors";
 
 import cloudinary from "./config/cloudinary";
@@ -29,6 +30,7 @@ app.use("/upload", uploadRoutes);
 app.use("/text", textRoutes);
 app.use("/advantages", advantagesRoutes);
 app.use("/facilities", facilitiesRoutes);
+app.use("/contacts", contactsRoutes);
 
 app.get('/', (req, res) => {
     res.send("StuffPlace backend Typescript-Node server.")

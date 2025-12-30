@@ -6,7 +6,11 @@ export interface IContacts extends Document {
     facebook: string,
     instagram: string,
     telegram: string,
-    location: string
+    location: string,
+    adress?: {
+        en: string,
+        hu: string,
+    },
 }
 
 const ContactsSchema = new Schema<IContacts>({
@@ -15,7 +19,11 @@ const ContactsSchema = new Schema<IContacts>({
     facebook: { type: String },
     instagram: { type: String },
     telegram: { type: String },
-    location: { type: String }
+    location: { type: String },
+    adress: {
+        en: { type: String },
+        hu: { type: String },
+    },
 })
 
 export const Contacts = mongoose.model<IContacts>("Contacts", ContactsSchema);
